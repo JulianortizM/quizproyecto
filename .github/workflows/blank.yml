@@ -1,32 +1,23 @@
-name: Flutter Contruccion
+name: Flutter Tests
 
-on: push
-jobs:  
+on:
+  push:
+    branches:
+      - master # Puedes cambiar esto al nombre de tu rama principal
 
-  montar_proyecto: 
-    runs-on: ubuntu-latest  
+jobs:
+  test:
+    name: Run Flutter Tests
+    runs-on: ubuntu-latest
 
-    steps:  
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-    - uses: actions/checkout@v4  
-    - name: Usar Node.js 20.x
-      uses: actions/setup-node@v4
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
       with:
-        node-version: '20.x'
+        flutter-version: 'stable' # Puedes cambiar esto a la versión que necesites
 
-    - uses: actions/setup-java@v4
-      with:
-        java-version: '12.x'
-        distribution: 'adopt'
-
-    - uses: subosito/flutter-action@v2
-      with:
-        channel: 'stable' 
-
-    - run: flutter pub get
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Get Dependencies
+      run: flutter pub get
