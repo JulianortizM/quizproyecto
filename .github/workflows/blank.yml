@@ -1,0 +1,32 @@
+name: Flutter Contruccion
+
+on: push
+jobs:  
+
+  montar_proyecto: 
+    runs-on: ubuntu-latest  
+
+    steps:  
+
+    - uses: actions/checkout@v4  
+    - name: Usar Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '12.x'
+        distribution: 'adopt'
+
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable' 
+
+    - run: flutter pub get
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
